@@ -25,7 +25,7 @@ public class ButtonsSetup : MonoBehaviour
         newButton.transform.localScale = Vector3.one;
         Button but = newButton.GetComponent<Button>();
 
-        but.GetComponent<ButtonInfoHolder>().costText.text = 50.ToString();
+        but.GetComponent<ButtonInfoHolder>().costText.text = UnitsCosts.CollectorCost.ToString();
         but.GetComponent<ButtonInfoHolder>().SetImageInIcon(0);
         but.onClick.AddListener(() => GenerateCollector());
 
@@ -38,7 +38,7 @@ public class ButtonsSetup : MonoBehaviour
         newButton.transform.localScale = Vector3.one;
         Button but = newButton.GetComponent<Button>();
 
-        but.GetComponent<ButtonInfoHolder>().costText.text = 120.ToString();
+        but.GetComponent<ButtonInfoHolder>().costText.text = UnitsCosts.HarrierCost.ToString();
         but.GetComponent<ButtonInfoHolder>().SetImageInIcon(1);
         but.onClick.AddListener(() => GenerateHarrier());
 
@@ -50,9 +50,9 @@ public class ButtonsSetup : MonoBehaviour
         {
             case BuildingType.Motherboard:
                 CollectorButton();
-                HarrierButton();
                 break;
             case BuildingType.Gate:
+                HarrierButton();
                 break;
             default:
                 break;

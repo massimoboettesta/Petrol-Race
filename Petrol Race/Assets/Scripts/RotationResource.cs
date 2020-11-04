@@ -17,7 +17,7 @@ public class RotationResource : MonoBehaviour
         }
         else
         {
-            transform.RotateAround(transform.parent.position, speed * Time.deltaTime);
+            transform.Rotate(transform.parent.position, speed * Time.deltaTime);
         }
     }
 }

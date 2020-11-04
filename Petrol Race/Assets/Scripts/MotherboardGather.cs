@@ -13,6 +13,7 @@ public class MotherboardGather : MonoBehaviour
             myPlayer.UpdateResources();
             other.gameObject.GetComponent<ResourcesHolder>().EmptyCollector();
             other.gameObject.GetComponent<ResourcesHolder>().VisualizerCrystals.SetActive(false);
+            other.gameObject.GetComponent<PathFollow>().GoToNextPoint();
         }
     }
 

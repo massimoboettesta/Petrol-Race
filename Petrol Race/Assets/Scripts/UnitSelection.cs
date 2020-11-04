@@ -13,6 +13,7 @@ public class UnitSelection : MonoBehaviour
     public LayerMask MovementLayerMask;
 
     private Player myPlayer;
+    private bool enemyDetected;
 
     private List<Unit> selectedUnits = new List<Unit>();
     private Vector2 startPos;
@@ -70,6 +71,7 @@ public class UnitSelection : MonoBehaviour
         //ORDER UNITS TO MOVE
         if (Input.GetMouseButtonDown(1) && !IsMouseOverUI())
         {
+            DetectEnemy(Input.mousePosition);
             MoveAgentsToDest(Input.mousePosition);
         }
 
@@ -81,33 +83,77 @@ public class UnitSelection : MonoBehaviour
 
     }
 
+    //TRY TO DETECT ENEMY
+    private void DetectEnemy(Vector2 mousePos)
+    {
+        Ray ray = cam.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+        Vector3 destination;
+
+            //IF I CLICKED OVER A UNIT
+            if (Physics.Raycast(ray, out hit, 100, unitLayerMask))
+            {
+                destination = hit.point;
+                
+
+                if (selectedUnits.Count > 0)
+                {
+                    //SPAWN MOVE AGENTS UI ELEMENT
+                    //Instantiate(WorldSpaceMoveUIEffect, destination, Quaternion.identity);
+
+                    foreach (Unit currUnit in selectedUnits)
+                    {
+                        if (currUnit.gameObject.GetComponent<NavMeshAgent>() != null && currUnit.objectiveUnit == null 
+                        && currUnit != hit.collider.gameObject.GetComponent<Unit>())
+                        {
+                            currUnit.StopAttackingUnit();
+                            currUnit.objectiveUnit = hit.collider.gameObject.GetComponent<Unit>();
+                            currUnit.AttackUnit();
+                            enemyDetected = true;
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                enemyDetected = false;
+            }
+        
+    }
+
     //MOVE AGENTS TO DESTINATION
     private void MoveAgentsToDest(Vector2 mousePos)
     {
         Ray ray = cam.ScreenPointToRay(mousePos);
         RaycastHit hit;
         Vector3 destination;
-       
-        
 
-        if (Physics.Raycast(ray, out hit, 100, MovementLayerMask))
-        {
-            destination = hit.point;
-
-            if (selectedUnits.Count>0)
+            //IF I CLICKED OVER GROUND
+            if (Physics.Raycast(ray, out hit, 100, MovementLayerMask)&& !enemyDetected)
             {
-                //SPAWN MOVE AGENTS UI ELEMENT
-                Instantiate(WorldSpaceMoveUIEffect, destination,Quaternion.identity);
+                destination = hit.point;
 
-                foreach (Unit currUnit in selectedUnits)
+                if (selectedUnits.Count > 0)
                 {
-                    if(currUnit.gameObject.GetComponent<NavMeshAgent>()!= null)
-                    currUnit.gameObject.GetComponent<NavMeshAgent>().SetDestination(destination);
+                    //SPAWN MOVE AGENTS UI ELEMENT
+                    Instantiate(WorldSpaceMoveUIEffect, destination, Quaternion.identity);
+
+                    foreach (Unit currUnit in selectedUnits)
+                    {
+                        if (currUnit.gameObject.GetComponent<NavMeshAgent>() != null)
+                        {
+                            enemyDetected = false;
+                            currUnit.StopAttackingUnit();
+                            currUnit.objectiveUnit = null;
+                            currUnit.gameObject.GetComponent<NavMeshAgent>().isStopped = false;
+                            currUnit.gameObject.GetComponent<NavMeshAgent>().SetDestination(destination);
+                            
+                        }
+
+                    }
                 }
             }
-        }
-
-        
     }
     //SELECTION BOX CREATION AND UPDATE
     private void UpdateSelectionBox(Vector2 curMousePos)
