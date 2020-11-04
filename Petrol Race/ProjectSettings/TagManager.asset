@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Resource
+  - Collector
+  - Motherboard
+  - Ground
+  - Harrier
+  - Gate
   layers:
   - Default
   - TransparentFX
@@ -13,9 +19,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Units
+  - Resource
+  - Ground
   - 
   - 
   - 
@@ -38,6 +44,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UI
+    uniqueID: 2664783419
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

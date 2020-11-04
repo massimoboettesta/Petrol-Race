@@ -1,0 +1,2 @@
+F:\Petrol Race Repo\Petrol-Race\Petrol Race\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+F:\Petrol Race Repo\Petrol-Race\Petrol Race\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
