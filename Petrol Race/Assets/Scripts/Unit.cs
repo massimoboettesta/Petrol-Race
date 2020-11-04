@@ -5,8 +5,10 @@ using UnityEngine.AI;
 
 public enum UnitType
 {
+    NotSpecified,
     Collector,
-    Harrier
+    Harrier,
+    Flamethrower
 }
 public class Unit : MonoBehaviour
 {
@@ -75,10 +77,19 @@ public class Unit : MonoBehaviour
     {
         switch (myType)
         {
+            case UnitType.NotSpecified:
+                break;
             case UnitType.Collector:
-                
+
                 break;
             case UnitType.Harrier:
+                if (attacking)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(objectiveUnit.transform.position - transform.position);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothRotation * Time.deltaTime);
+                }
+                break;
+            case UnitType.Flamethrower:
                 if (attacking)
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(objectiveUnit.transform.position - transform.position);
@@ -90,12 +101,12 @@ public class Unit : MonoBehaviour
         }
     }
 
-   /* void OnDrawGizmosSelected()
-    {
-        Vector3 locationToGo = transform.position + (objectiveUnit.transform.position - transform.position);
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(locationToGo,.3f);
-    }*/
+    /* void OnDrawGizmosSelected()
+     {
+         Vector3 locationToGo = transform.position + (objectiveUnit.transform.position - transform.position);
+         Gizmos.color = Color.red;
+         Gizmos.DrawSphere(locationToGo,.3f);
+     }*/
 
     public bool CheckAttackRange()
     {
@@ -124,12 +135,18 @@ public class Unit : MonoBehaviour
     //START ATTACKING UNIT
     public void AttackUnit()
     {
+        //ATTACK FUNCTION
         switch (myType)
         {
+            case UnitType.NotSpecified:
+                break;
             case UnitType.Collector:
                 break;
             case UnitType.Harrier:
-                    GetComponent<LaunchMissile>().StartAttackUnit();
+                GetComponent<LaunchMissile>().StartAttackUnit();
+                break;
+            case UnitType.Flamethrower:
+               
                 break;
             default:
                 break;
@@ -141,10 +158,14 @@ public class Unit : MonoBehaviour
         attacking = false;
         switch (myType)
         {
+            case UnitType.NotSpecified:
+                break;
             case UnitType.Collector:
                 break;
             case UnitType.Harrier:
                 GetComponent<LaunchMissile>().StopAttackingUnit();
+                break;
+            case UnitType.Flamethrower:
                 break;
             default:
                 break;

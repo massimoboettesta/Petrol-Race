@@ -84,6 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableCollector: {fileID: 8670317233853356416, guid: 53aab81465fd6e64b8848d118ae2b4f0, type: 3}
   spawnableHarrier: {fileID: 8670317233853356416, guid: cd7626be0869df94fbf49eb26177c96d, type: 3}
+  spawnableFlamethrower: {fileID: 8670317233853356416, guid: 79b897e3d84e1794fbf6cc042f431f60, type: 3}
   spawnPoint: {fileID: 1454834353}
   rowSize: 5
   rowStretch: 1.2

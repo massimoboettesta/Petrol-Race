@@ -7,6 +7,7 @@ public class HomingMissile : MonoBehaviour
 {
     public GameObject objective;
     public GameObject whoIsMyParent;
+    public GameObject explosionEffect;
     public float homingForce = 30.0f;
     public float rotationForce = 200.0f;
     
@@ -28,6 +29,8 @@ public class HomingMissile : MonoBehaviour
         if (collision.gameObject.GetComponent<Unit>()&& collision.gameObject != whoIsMyParent && !collision.gameObject.GetComponent<HomingMissile>())
         {
             //Damage Objective
+            collision.gameObject.GetComponent<Unit>().HP -= 5;
+            Instantiate(explosionEffect, collision.contacts[0].point,Quaternion.identity);
             Destroy(gameObject);
         }
         

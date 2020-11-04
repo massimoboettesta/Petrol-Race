@@ -33,7 +33,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8670317233853356416}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.2858248, y: -0.0000009536743, z: -2.654235}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3712859901756482011}
@@ -106,6 +106,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 306a924081a61df4ba71e699d1b5c1fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myType: 1
+  HP: 100
+  alive: 1
+  attacking: 0
+  objectiveUnit: {fileID: 0}
+  attackRange: 3
   isSelected: 0
   unitSelectionUI: {fileID: 2855630729051751043}
   unitInfoUI: {fileID: 0}
@@ -121,7 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1bcd6e1f3bfa03488aebd6ad2f836a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: []
 --- !u!114 &4739130938841460287
 MonoBehaviour:
   m_ObjectHideFlags: 0

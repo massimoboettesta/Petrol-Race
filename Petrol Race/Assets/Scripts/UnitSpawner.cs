@@ -3,24 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum SpawnType
-{
-    Collector,
-    Harrier
-}
 public class UnitSpawner : MonoBehaviour
 {
     private Player playerRef;
 
     public GameObject spawnableCollector;
     public GameObject spawnableHarrier;
+    public GameObject spawnableFlamethrower;
     public Transform spawnPoint;
+    public Transform spawnPointFlyingUnit;
     public int rowSize = 5;
     public float rowStretch = 1.2f;
     public int columnSize = 5;
     public float columnStretch = 1.2f;
-    public Transform spawnPointFlyingUnit;
-    public SpawnType type;
+
 
     private List<Vector3> availableSpawnLocationsFly = new List<Vector3>();
     private List<Vector3> availableSpawnLocationsGround= new List<Vector3>();
@@ -108,7 +104,8 @@ public class UnitSpawner : MonoBehaviour
     {
         if (playerRef.currentPlayerResources >= UnitsCosts.CollectorCost)
         {
-            GameObject newUnit = Instantiate(spawnableHarrier, GetAvailableLocationGROUND(), Quaternion.identity, null);
+            playerRef.currentPlayerResources -= UnitsCosts.CollectorCost;
+            GameObject newUnit = Instantiate(spawnableCollector, GetAvailableLocationGROUND(), Quaternion.identity, null);
             playerRef.units.Add(newUnit.GetComponent<Unit>());
             playerRef.NotEnoughResources.SetActive(false);
         }
@@ -122,6 +119,7 @@ public class UnitSpawner : MonoBehaviour
     {
         if (playerRef.currentPlayerResources >= UnitsCosts.HarrierCost)
         {
+            playerRef.currentPlayerResources -= UnitsCosts.HarrierCost;
             GameObject newUnit = Instantiate(spawnableHarrier, GetAvailableLocationFLY(),Quaternion.identity,null);
             //newUnit.GetComponent<NavMeshAgent>().SetDestination();
             playerRef.units.Add(newUnit.GetComponent<Unit>());
@@ -133,6 +131,21 @@ public class UnitSpawner : MonoBehaviour
         }
     }
 
+    public void SpawnFlamethrower()
+    {
+        if (playerRef.currentPlayerResources >= UnitsCosts.FlamethrowerCost)
+        {
+            playerRef.currentPlayerResources -= UnitsCosts.FlamethrowerCost;
+            GameObject newUnit = Instantiate(spawnableFlamethrower, GetAvailableLocationGROUND(), Quaternion.identity, null);
+            //newUnit.GetComponent<NavMeshAgent>().SetDestination();
+            playerRef.units.Add(newUnit.GetComponent<Unit>());
+            playerRef.NotEnoughResources.SetActive(false);
+        }
+        else
+        {
+            NotEnoughResources();
+        }
+    }
 
 
     public void NotEnoughResources()

@@ -341,6 +341,7 @@ MonoBehaviour:
   availableImages:
   - {fileID: 21300000, guid: a65a4634e60538e4790d44ce15ca6b56, type: 3}
   - {fileID: 21300000, guid: 4a1865dfde67d3e4e9d749c0a00dbb47, type: 3}
+  - {fileID: 21300000, guid: 5f4f635701b4e6847ac9634aafc9c36f, type: 3}
   currentIcon: {fileID: 6688148285371232142}
   costText: {fileID: 537273330764655428}
 --- !u!222 &6688148286528662157

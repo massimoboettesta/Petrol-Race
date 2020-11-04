@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 306a924081a61df4ba71e699d1b5c1fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myType: 1
+  myType: 2
   HP: 100
   alive: 1
   attacking: 0

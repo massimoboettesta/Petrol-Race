@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objective: {fileID: 0}
   whoIsMyParent: {fileID: 0}
+  explosionEffect: {fileID: 5257088725742133894, guid: 796bf4c5c723c654588284b14b32fa4f, type: 3}
   homingForce: 10
   rotationForce: 50
 --- !u!33 &33290836621737828
