@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MotherboardGather : MonoBehaviour
 {
-    private Player myPlayer;
+    public Player myPlayer;
     //EMPTY COLLECTOR AND GATHER ITS RESOURCES
     private void OnTriggerEnter(Collider other)
     {
@@ -17,9 +17,5 @@ public class MotherboardGather : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-    }
 
 }

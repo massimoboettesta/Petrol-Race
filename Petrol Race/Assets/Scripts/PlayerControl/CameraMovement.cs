@@ -13,9 +13,15 @@ public class CameraMovement : MonoBehaviour
     public float maxZoom;
     private Camera camRef;
 
+    private bool focused;
+    void OnApplicationFocus(bool hasFocus)
+    {
+        focused = hasFocus;
+    }
     void MoveCam()
     {
         Vector3 camPos = transform.position;
+
         if (Input.mousePosition.x > Screen.width - edgeSize)
         {
             isCamMoving = true;
@@ -41,9 +47,10 @@ public class CameraMovement : MonoBehaviour
         {
             isCamMoving = false;
         }
-        if(isCamMoving)
+        if(isCamMoving && focused)
         transform.position = camPos;
     }
+
     private void ZoomInOut()
     {
         float ScrollWheelChange = Input.GetAxis("Mouse ScrollWheel");

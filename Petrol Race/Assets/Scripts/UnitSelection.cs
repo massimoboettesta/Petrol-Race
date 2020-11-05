@@ -23,7 +23,7 @@ public class UnitSelection : MonoBehaviour
     private void Awake()
     {
         cam = Camera.main;
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myPlayer = GetComponentInParent<Player>();
     }
     // Start is called before the first frame update
     void Start()

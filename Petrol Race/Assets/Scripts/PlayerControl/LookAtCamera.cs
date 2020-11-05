@@ -14,6 +14,7 @@ public class LookAtCamera : MonoBehaviour
 
     private void Update()
     {
+        if(cam!=null)
         transform.eulerAngles = cam.transform.eulerAngles;
     }
 }

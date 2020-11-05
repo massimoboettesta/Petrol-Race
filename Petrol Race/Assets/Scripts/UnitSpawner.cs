@@ -137,7 +137,6 @@ public class UnitSpawner : MonoBehaviour
         {
             playerRef.currentPlayerResources -= UnitsCosts.FlamethrowerCost;
             GameObject newUnit = Instantiate(spawnableFlamethrower, GetAvailableLocationGROUND(), Quaternion.identity, null);
-            //newUnit.GetComponent<NavMeshAgent>().SetDestination();
             playerRef.units.Add(newUnit.GetComponent<Unit>());
             playerRef.NotEnoughResources.SetActive(false);
         }
