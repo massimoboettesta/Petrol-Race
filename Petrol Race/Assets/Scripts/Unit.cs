@@ -13,6 +13,7 @@ public enum UnitType
 public class Unit : MonoBehaviour
 {
     public UnitType myType;
+    public int MaxHP = 100;
     public int HP = 100;
     public bool alive = true;
     public bool attacking = false;
@@ -21,12 +22,13 @@ public class Unit : MonoBehaviour
     public bool isSelected;
     public GameObject unitSelectionUI;
     public GameObject unitInfoUI;
+    public ProgressBar HPUI;
 
 
-    private float smoothRotation = 10.0f;
+    public float smoothRotation = 10.0f;
     private NavMeshAgent pathINFO;
     private LineRenderer pathVisual;
-
+    private Color lineColor;
     public void SelectUnit()
     {
         if(pathVisual!=null)
@@ -53,16 +55,30 @@ public class Unit : MonoBehaviour
         if (pathINFO != null)
         {
             NavMeshPath navPath = pathINFO.path;
-            if (pathINFO.hasPath)
-            {
+            if (pathINFO.hasPath && !attacking)
+            { 
+                if (objectiveUnit != null)
+                {
+                    pathVisual.material.color = Color.red;
+                }
+                else
+                {
+                    pathVisual.material.color = lineColor;
+                }
                 pathVisual.positionCount=navPath.corners.Length;
                 pathVisual.SetPosition(0, transform.position);
 
                 for (int i = 1; i < navPath.corners.Length; i++)
                 {
-                
-                    pathVisual.SetPosition(i, navPath.corners[i]);
-
+                    if (objectiveUnit!=null && i==navPath.corners.Length-1)
+                    {
+                       
+                        pathVisual.SetPosition(i, objectiveUnit.transform.position);
+                    }
+                    else
+                    {
+                        pathVisual.SetPosition(i, navPath.corners[i]);
+                    }
                 }
             }
             else
@@ -86,7 +102,9 @@ public class Unit : MonoBehaviour
                 if (attacking)
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(objectiveUnit.transform.position - transform.position);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothRotation * Time.deltaTime);
+                    Quaternion lerpedRotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothRotation * Time.deltaTime);
+                    lerpedRotation.x = 0;
+                    transform.rotation = lerpedRotation;
                 }
                 break;
             case UnitType.Flamethrower:
@@ -107,7 +125,7 @@ public class Unit : MonoBehaviour
          Gizmos.color = Color.red;
          Gizmos.DrawSphere(locationToGo,.3f);
      }*/
-
+    
     public bool CheckAttackRange()
     {
         if (objectiveUnit != null)
@@ -152,6 +170,20 @@ public class Unit : MonoBehaviour
                 break;
         }
     }
+    //UPDATE HEALTH
+    public void UpdateHealth()
+    {
+        HPUI.current = HP;
+        HPUI.GetCurrentFill();
+        //KILL UNIT
+        if (HP <= 0)
+        {
+            alive = false;
+            Destroy(gameObject);
+        }
+    }
+
+
     //STOP ATTACKING UNIT
     public void StopAttackingUnit()
     {
@@ -178,6 +210,14 @@ public class Unit : MonoBehaviour
         
         pathINFO = GetComponent<NavMeshAgent>();
         pathVisual = GetComponentInChildren<LineRenderer>();
+        lineColor = pathVisual.material.color;
+
+        if (HPUI != null)
+        {
+            HPUI.maximum = MaxHP;
+            UpdateHealth();
+        }
+        
     }
 
     // Update is called once per frame

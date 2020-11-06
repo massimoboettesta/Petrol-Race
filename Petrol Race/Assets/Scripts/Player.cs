@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using Mirror;
 
-public class Player : NetworkBehaviour
+public class Player : MonoBehaviour
 {
     public TextMeshProUGUI resourcesAmmountUI;
     public AudioListener audioListener;
@@ -12,9 +12,9 @@ public class Player : NetworkBehaviour
     public GameObject UI;
     public GameObject LoadingScreen;
     public GameObject NotEnoughResources;
-    [SyncVar]
+    //[SyncVar]
     public int currentPlayerResources = 0;
-    [SyncVar]
+    //[SyncVar]
     public int connectionID;
     public List<Unit> units = new List<Unit>();
 
@@ -54,7 +54,7 @@ public class Player : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        /*
         if (isLocalPlayer)
         {
             LoadingScreen.SetActive(false);
@@ -70,5 +70,6 @@ public class Player : NetworkBehaviour
             myCamera.SetActive(false);
             UI.SetActive(false);
         }
+        */
     }
 }

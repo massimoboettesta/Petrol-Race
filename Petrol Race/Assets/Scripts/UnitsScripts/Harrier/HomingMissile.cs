@@ -23,13 +23,19 @@ public class HomingMissile : MonoBehaviour
             rb.angularVelocity = rotationAmmount * rotationForce;
             rb.velocity = transform.up * homingForce;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<Unit>()&& collision.gameObject != whoIsMyParent && !collision.gameObject.GetComponent<HomingMissile>())
         {
+            Unit myRef = collision.gameObject.GetComponent<Unit>();
             //Damage Objective
-            collision.gameObject.GetComponent<Unit>().HP -= 5;
+            myRef.HP = Mathf.Clamp(myRef.HP-5, 0, myRef.MaxHP);
+            myRef.UpdateHealth();
             Instantiate(explosionEffect, collision.contacts[0].point,Quaternion.identity);
             Destroy(gameObject);
         }
