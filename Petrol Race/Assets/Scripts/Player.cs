@@ -18,7 +18,8 @@ public class Player : MonoBehaviour
     public int connectionID;
     public List<Unit> units = new List<Unit>();
 
-    
+    private Vector3 camStartPos;
+    public float backToStartSpeed = 10.0f;
 
     public void UpdateResources()
     {
@@ -48,12 +49,18 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        camStartPos = myCamera.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            myCamera.transform.position = Vector3.Lerp(myCamera.transform.position, camStartPos,Time.deltaTime*backToStartSpeed);
+        }
+
+
         /*
         if (isLocalPlayer)
         {

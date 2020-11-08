@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1078233115737493797}
   - component: {fileID: 1078233115737493796}
-  - component: {fileID: 4399035747275983587}
-  - component: {fileID: 8776113506009301139}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -47,8 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d984194d86950a141959b4eabbee866c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   resourcesAmmountUI: {fileID: 3762902488494214550}
   audioListener: {fileID: 1078233114460929754}
   myCamera: {fileID: 1078233114460929753}
@@ -58,40 +54,6 @@ MonoBehaviour:
   currentPlayerResources: 0
   connectionID: 0
   units: []
---- !u!114 &4399035747275983587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078233115737493795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
---- !u!114 &8776113506009301139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078233115737493795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  clientAuthority: 0
-  localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
 --- !u!1001 &3762902486990796497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -286,6 +248,10 @@ PrefabInstance:
     - target: {fileID: 7816521939856190513, guid: 19c808778fe530847a5b8545d9261025, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070974248727666907, guid: 19c808778fe530847a5b8545d9261025, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19c808778fe530847a5b8545d9261025, type: 3}

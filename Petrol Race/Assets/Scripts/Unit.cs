@@ -210,6 +210,7 @@ public class Unit : MonoBehaviour
         
         pathINFO = GetComponent<NavMeshAgent>();
         pathVisual = GetComponentInChildren<LineRenderer>();
+        if(pathVisual!=null)
         lineColor = pathVisual.material.color;
 
         if (HPUI != null)
