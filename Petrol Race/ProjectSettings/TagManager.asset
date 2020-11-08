@@ -11,6 +11,7 @@ TagManager:
   - Harrier
   - Gate
   - Flamethrower
+  - CamBlock
   layers:
   - Default
   - TransparentFX
@@ -23,8 +24,8 @@ TagManager:
   - Units
   - Resource
   - Ground
-  - 
-  - 
+  - FogOfWarMain
+  - FogOfWarSecondary
   - 
   - 
   - 

@@ -42,8 +42,6 @@ GameObject:
   - component: {fileID: 2873098305903007704}
   - component: {fileID: 1415680421104462660}
   - component: {fileID: 7185782486293793182}
-  - component: {fileID: -8940169713517708675}
-  - component: {fileID: 30532283302653409}
   m_Layer: 8
   m_Name: Gate
   m_TagString: Gate
@@ -105,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myType: 0
+  MaxHP: 100
   HP: 100
   alive: 1
   attacking: 0
@@ -113,6 +112,8 @@ MonoBehaviour:
   isSelected: 0
   unitSelectionUI: {fileID: 7681450670913475913}
   unitInfoUI: {fileID: 3892288840847732980}
+  HPUI: {fileID: 0}
+  smoothRotation: 10
 --- !u!65 &7185782486293793182
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -126,40 +127,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.5278826, y: 5.8564057, z: 2.9925022}
   m_Center: {x: -0.014996052, y: 2.4284928, z: -0.029753685}
---- !u!114 &-8940169713517708675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 82826237821778353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 1
-  m_AssetId: 
-  hasSpawned: 0
---- !u!114 &30532283302653409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 82826237821778353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  clientAuthority: 1
-  localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
 --- !u!1 &1324701832860873889
 GameObject:
   m_ObjectHideFlags: 0

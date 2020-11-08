@@ -9,8 +9,14 @@ public class CameraMovement : MonoBehaviour
     public float speed = 3.0f;
     public float edgeSize = 20.0f;
 
+    private Rigidbody rb;
+
     public float minZoom;
     public float maxZoom;
+
+    [Range(10,20)]
+    public float DesiredDist;
+    
     private Camera camRef;
 
     private bool focused;
@@ -20,7 +26,7 @@ public class CameraMovement : MonoBehaviour
     }
     void MoveCam()
     {
-        Vector3 camPos = transform.position;
+        Vector3 camPos = rb.position;
 
         if (Input.mousePosition.x > Screen.width - edgeSize)
         {
@@ -47,14 +53,24 @@ public class CameraMovement : MonoBehaviour
         {
             isCamMoving = false;
         }
-        if(isCamMoving && focused)
-        transform.position = camPos;
+        if(isCamMoving && focused){
+            Vector3 desiredV =(camPos-rb.position).normalized*speed;
+            desiredV.y=0;
+            rb.velocity = desiredV;
+            rb.velocity.Set(desiredV.x,0,desiredV.z);
+        }
+       
+    }
+    private void OnColliderEnter(Collider coll){
+        if(coll.CompareTag("Ground")){
+            isCamMoving=false;
+        }
     }
 
     private void ZoomInOut()
     {
         float ScrollWheelChange = Input.GetAxis("Mouse ScrollWheel");
-        if (ScrollWheelChange != 0&&ZoomCheck(ScrollWheelChange<0))
+        if (ScrollWheelChange != 0 && ZoomCheck(ScrollWheelChange<0))
         {                                            //If the scrollwheel has changed
             float R = ScrollWheelChange * 15;                                   //The radius from current camera
             float PosX = camRef.transform.eulerAngles.x + 90;              //Get up and down
@@ -94,6 +110,7 @@ public class CameraMovement : MonoBehaviour
             } 
             else if(distance < maxZoom && goingIN)
             {
+
                 return true;
             }
             else
@@ -108,13 +125,13 @@ public class CameraMovement : MonoBehaviour
     private void Awake()
     {
         camRef = GetComponent<Camera>();
+        rb = GetComponent<Rigidbody>();
     }
    
-
     // Update is called once per frame
     void LateUpdate()
     {
-
+        
         MoveCam();
         ZoomInOut();
     }
