@@ -7,11 +7,8 @@ using Mirror;
 public class MyNetworkManager :  NetworkManager
 {
     public int ConnectionsToStartGame = 2;
-    public MotherboardGather MotherBoardClient;
 
-
-    private List<NetworkConnection> ClientConnections = new List<NetworkConnection>();
-
+    public MessageToAllClients MessageToAllClients;
 
     public override void OnStartServer()
     {
@@ -26,38 +23,27 @@ public class MyNetworkManager :  NetworkManager
     public override void OnClientConnect(NetworkConnection conn)
     {
         Debug.Log("Connected to Server!");
-        ClientConnections.Add(conn);
+        MessageToAllClients.numberOfClients = NetworkManager.numPlayers;
+        Debug.Log("NUMBER OF CLIENTS: "+ numPlayers);
+        StartGameButtonEnabled();
     }
-
 
 
     public override void OnServerReady(NetworkConnection conn)
     {
-/*
-        
-        //NetworkServer.AddPlayerForConnection(conn, newPlayer);
-        
-        if (ClientConnections.Count >= ConnectionsToStartGame)
-        {
-            Debug.Log("TRYING TO CALL START GAME!");
-            //SPAWN NEW PLAYER
-            Debug.Log("New Player " + conn.connectionId + " spawned!");
-            GameObject newPlayer = Instantiate(singleton.playerPrefab);
-            newPlayer.GetComponent<Player>().connectionID = conn.connectionId;
-            //MOTHERBOARD REFERENCE TO PLAYER
-            MotherBoardClient.myPlayer = newPlayer.GetComponent<Player>();
 
-            //ADD IT TO CONNECTION
-            NetworkServer.AddConnection(conn);
-            GetComponent<FunctionToAllClients>().enabled = true;
-        }
-*/
     }
-    
+
+    void StartGameButtonEnabled(){
+        
+        if(MessageToAllClients.numberOfClients>=ConnectionsToStartGame){
+            MessageToAllClients.UnlockButton();
+        }
+    }
     
     public override void OnClientDisconnect(NetworkConnection conn)
     {
-        ClientConnections.Remove(conn);
         Debug.Log("Disconnected from Server!");
+        MessageToAllClients.numberOfClients--;
     }
 }
