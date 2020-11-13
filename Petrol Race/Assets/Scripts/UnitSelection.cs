@@ -141,16 +141,17 @@ public class UnitSelection : MonoBehaviour
 
                     foreach (Unit currUnit in selectedUnits)
                     {
-                        if (currUnit.gameObject.GetComponent<NavMeshAgent>() != null)
-                        {
-                            enemyDetected = false;
-                            currUnit.StopAttackingUnit();
-                            currUnit.objectiveUnit = null;
-                            currUnit.gameObject.GetComponent<NavMeshAgent>().isStopped = false;
-                            currUnit.gameObject.GetComponent<NavMeshAgent>().SetDestination(destination);
-                            
+                        if(currUnit != null){
+                            if (currUnit.gameObject.GetComponent<NavMeshAgent>() != null)
+                            {
+                                enemyDetected = false;
+                                currUnit.StopAttackingUnit();
+                                currUnit.objectiveUnit = null;
+                                currUnit.gameObject.GetComponent<NavMeshAgent>().isStopped = false;
+                                currUnit.gameObject.GetComponent<NavMeshAgent>().SetDestination(destination);
+                                
+                            }
                         }
-
                     }
                 }
             }
@@ -177,14 +178,16 @@ public class UnitSelection : MonoBehaviour
         //CHECKING OVERLAP WITH ALL PLAYER UNITS
         foreach (Unit currUnit in myPlayer.units)
         {
-            Vector3 screenPos = cam.WorldToScreenPoint(currUnit.transform.position);
+            if(currUnit!=null){
+                Vector3 screenPos = cam.WorldToScreenPoint(currUnit.transform.position);
 
-            if(screenPos.x>min.x && screenPos.x<max.x && screenPos.y>min.y && screenPos.y < max.y)
-            {
-                selectedUnits.Add(currUnit);
-                currUnit.SelectUnit();
+                if(screenPos.x>min.x && screenPos.x<max.x && screenPos.y>min.y && screenPos.y < max.y)
+                {
+                    selectedUnits.Add(currUnit);
+                    currUnit.SelectUnit();
+                }
+
             }
-
         }
     }
 
@@ -193,7 +196,9 @@ public class UnitSelection : MonoBehaviour
         //DESELECT ALL UNITS
         foreach (Unit currentUnit in selectedUnits)
         {
-            currentUnit.DeselectUnit();
+            if(currentUnit!=null){
+                 currentUnit.DeselectUnit();
+            }
         }
         selectedUnits.Clear();
     }

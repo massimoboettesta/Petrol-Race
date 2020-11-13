@@ -88,6 +88,13 @@ public class Unit : MonoBehaviour
         }
     }
 
+    private Quaternion LookAtRotation(Transform target)
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(objectiveUnit.transform.position - transform.position);
+        Quaternion lerpedRotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothRotation * Time.deltaTime);
+        lerpedRotation.x = 0;
+        return lerpedRotation;
+    }
 
     public void LookAtObjective()
     {
@@ -101,17 +108,13 @@ public class Unit : MonoBehaviour
             case UnitType.Harrier:
                 if (attacking)
                 {
-                    Quaternion targetRotation = Quaternion.LookRotation(objectiveUnit.transform.position - transform.position);
-                    Quaternion lerpedRotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothRotation * Time.deltaTime);
-                    lerpedRotation.x = 0;
-                    transform.rotation = lerpedRotation;
+                    transform.rotation = LookAtRotation(objectiveUnit.transform);
                 }
                 break;
             case UnitType.Flamethrower:
                 if (attacking)
                 {
-                    Quaternion targetRotation = Quaternion.LookRotation(objectiveUnit.transform.position - transform.position);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothRotation * Time.deltaTime);
+                    transform.rotation = LookAtRotation(objectiveUnit.transform);
                 }
                 break;
             default:
@@ -164,7 +167,7 @@ public class Unit : MonoBehaviour
                 GetComponent<LaunchMissile>().StartAttackUnit();
                 break;
             case UnitType.Flamethrower:
-               
+                GetComponent<FlamethrowerAttack>().StartAttackUnit();
                 break;
             default:
                 break;
@@ -198,6 +201,7 @@ public class Unit : MonoBehaviour
                 GetComponent<LaunchMissile>().StopAttackingUnit();
                 break;
             case UnitType.Flamethrower:
+            GetComponent<FlamethrowerAttack>().StopAttackingUnit();
                 break;
             default:
                 break;

@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1454834352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 0, z: 2.78}
+  m_LocalPosition: {x: -0.1, y: 1, z: 2.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8517342802295187252}
@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f83db3f110dd8489d0d490be77ffab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerRef: {fileID: 0}
   spawnableCollector: {fileID: 8670317233853356416, guid: 53aab81465fd6e64b8848d118ae2b4f0, type: 3}
   spawnableHarrier: {fileID: 8670317233853356416, guid: cd7626be0869df94fbf49eb26177c96d, type: 3}
   spawnableFlamethrower: {fileID: 8670317233853356416, guid: 79b897e3d84e1794fbf6cc042f431f60, type: 3}

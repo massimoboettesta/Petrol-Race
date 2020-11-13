@@ -10,6 +10,8 @@ public class HomingMissile : MonoBehaviour
     public GameObject explosionEffect;
     public float homingForce = 30.0f;
     public float rotationForce = 200.0f;
+
+    public int damageAmmount = 10;
     
     private Rigidbody rb;
 
@@ -34,7 +36,7 @@ public class HomingMissile : MonoBehaviour
         {
             Unit myRef = collision.gameObject.GetComponent<Unit>();
             //Damage Objective
-            myRef.HP = Mathf.Clamp(myRef.HP-5, 0, myRef.MaxHP);
+            myRef.HP = Mathf.Clamp(myRef.HP-damageAmmount, 0, myRef.MaxHP);
             myRef.UpdateHealth();
             Instantiate(explosionEffect, collision.contacts[0].point,Quaternion.identity);
             Destroy(gameObject);

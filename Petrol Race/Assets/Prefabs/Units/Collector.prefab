@@ -118,6 +118,7 @@ MonoBehaviour:
   unitSelectionUI: {fileID: 2855630729051751043}
   unitInfoUI: {fileID: 0}
   HPUI: {fileID: 7077502162287321705}
+  smoothRotation: 10
 --- !u!114 &1994278780835616923
 MonoBehaviour:
   m_ObjectHideFlags: 0

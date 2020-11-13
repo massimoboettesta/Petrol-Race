@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class UnitSpawner : MonoBehaviour
 {
-    private Player playerRef;
+    public Player ownerRef;
 
     public GameObject spawnableCollector;
     public GameObject spawnableHarrier;
@@ -28,7 +28,6 @@ public class UnitSpawner : MonoBehaviour
     {
         //FLYING
         Gizmos.color = Color.cyan;
-        Gizmos.DrawSphere(spawnPointFlyingUnit.position,0.2f); 
         for (int i = -rowSize; i <= rowSize; i++)
         {
             for (int j = 0; j >= -columnSize; j--)
@@ -41,7 +40,6 @@ public class UnitSpawner : MonoBehaviour
         }
         //GROUND
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(spawnPoint.position, 0.2f);
         for (int i = -rowSize; i <= rowSize; i++)
         {
             for (int j = 0; j >= -columnSize; j--)
@@ -70,7 +68,7 @@ public class UnitSpawner : MonoBehaviour
         {
             for (int j = 0; j >= -columnSize; j--)
             {
-                Vector3 nextPoint = spawnPointFlyingUnit.position;
+                Vector3 nextPoint = spawnPoint.position;
                 availableSpawnLocationsGround.Add(new Vector3(nextPoint.x + i*rowStretch, nextPoint.y, nextPoint.z + j*columnStretch));
             }
         }
@@ -100,14 +98,16 @@ public class UnitSpawner : MonoBehaviour
         return spawnPoint.position;
     }
 
+    //DIFFERENT UNITS TO SPAWN
     public void SpawnCollector()
     {
-        if (playerRef.currentPlayerResources >= UnitsCosts.CollectorCost)
+        if (ownerRef.currentPlayerResources >= UnitsCosts.CollectorCost)
         {
-            playerRef.currentPlayerResources -= UnitsCosts.CollectorCost;
+            ownerRef.currentPlayerResources -= UnitsCosts.CollectorCost;
+            ownerRef.UpdateResources();
             GameObject newUnit = Instantiate(spawnableCollector, GetAvailableLocationGROUND(), Quaternion.identity, null);
-            playerRef.units.Add(newUnit.GetComponent<Unit>());
-            playerRef.NotEnoughResources.SetActive(false);
+            ownerRef.units.Add(newUnit.GetComponent<Unit>());
+            ownerRef.NotEnoughResources.SetActive(false);
         }
         else
         {
@@ -117,13 +117,14 @@ public class UnitSpawner : MonoBehaviour
 
     public void SpawnHarrier()
     {
-        if (playerRef.currentPlayerResources >= UnitsCosts.HarrierCost)
+        if (ownerRef.currentPlayerResources >= UnitsCosts.HarrierCost)
         {
-            playerRef.currentPlayerResources -= UnitsCosts.HarrierCost;
+            ownerRef.currentPlayerResources -= UnitsCosts.HarrierCost;
+            ownerRef.UpdateResources();
             GameObject newUnit = Instantiate(spawnableHarrier, GetAvailableLocationFLY(),Quaternion.identity,null);
             //newUnit.GetComponent<NavMeshAgent>().SetDestination();
-            playerRef.units.Add(newUnit.GetComponent<Unit>());
-            playerRef.NotEnoughResources.SetActive(false);
+            ownerRef.units.Add(newUnit.GetComponent<Unit>());
+            ownerRef.NotEnoughResources.SetActive(false);
         }
         else
         {
@@ -133,12 +134,13 @@ public class UnitSpawner : MonoBehaviour
 
     public void SpawnFlamethrower()
     {
-        if (playerRef.currentPlayerResources >= UnitsCosts.FlamethrowerCost)
+        if (ownerRef.currentPlayerResources >= UnitsCosts.FlamethrowerCost)
         {
-            playerRef.currentPlayerResources -= UnitsCosts.FlamethrowerCost;
+            ownerRef.currentPlayerResources -= UnitsCosts.FlamethrowerCost;
+            ownerRef.UpdateResources();
             GameObject newUnit = Instantiate(spawnableFlamethrower, GetAvailableLocationGROUND(), Quaternion.identity, null);
-            playerRef.units.Add(newUnit.GetComponent<Unit>());
-            playerRef.NotEnoughResources.SetActive(false);
+            ownerRef.units.Add(newUnit.GetComponent<Unit>());
+            ownerRef.NotEnoughResources.SetActive(false);
         }
         else
         {
@@ -149,13 +151,13 @@ public class UnitSpawner : MonoBehaviour
 
     public void NotEnoughResources()
     {
-        playerRef.NotEnoughResources.SetActive(true);
-        playerRef.NotEnoughResources.GetComponent<Animation>().Play();
+        ownerRef.NotEnoughResources.SetActive(true);
+        ownerRef.NotEnoughResources.GetComponent<Animation>().Play();
     }
 
     private void Awake()
     {
-        playerRef = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        //ownerRef = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         //GENERATE POINTS AROUND SPAWNPOINT
         SpawnPointsSetup();
     }

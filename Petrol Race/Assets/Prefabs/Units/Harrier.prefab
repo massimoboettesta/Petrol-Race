@@ -145,7 +145,8 @@ MonoBehaviour:
   missileStartLoc: {fileID: 2405440872708494035}
   missileStartLoc2: {fileID: 7589507325143407643}
   missileCadency: 0.3
-  attackSpeed: 2
+  attackSpeed: 1.5
+  damageAmmount: 10
   onReachCD: 0.5
 --- !u!65 &1547728246553074750
 BoxCollider:
